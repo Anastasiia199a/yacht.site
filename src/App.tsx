@@ -499,8 +499,7 @@ function RequestSection({
         <footer className="relative z-20 mt-20 flex flex-col items-center gap-5 text-center">
           <a href={TELEGRAM.url} target="_blank" rel="noreferrer" className="btn-gold">
             <TelegramIcon />
-            Message Ilya on Telegram
-            <span className="text-gauge">{TELEGRAM.handle}</span>
+            Telegram
           </a>
           <p className="text-sm text-gauge">Ilya Belov, yacht crew. Seychelles and Maldives.</p>
         </footer>
