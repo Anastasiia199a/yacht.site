@@ -2,7 +2,7 @@
 // Until it is set, the form reports that it is not connected and the assistant
 // answers from its built-in replies.
 export const BACKEND_URL =
-  "https://script.google.com/macros/s/AKfycbxI0O5aBlbV3fXzj8DvtYq9XAVuYjrniXgiuvbr5UJSZwLNsOPs2ycmhlZWAiPRtSee/exec";
+  "https://script.google.com/macros/s/AKfycbzBRZas3k4Fy5-EXp_pNciE292AzG9Xt0ReNNPxtJRNtnM8NlaJBMW5V7sLd05kP1U/exec";
 
 export const TELEGRAM = { handle: "@anestezia7", url: "https://t.me/anestezia7" };
 
