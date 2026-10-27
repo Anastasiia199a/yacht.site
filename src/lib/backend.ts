@@ -1,7 +1,8 @@
 // Web app URL of apps-script/Code.gs (see apps-script/SETUP.md).
 // Until it is set, the form reports that it is not connected and the assistant
 // answers from its built-in replies.
-export const BACKEND_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+export const BACKEND_URL =
+  "https://script.google.com/macros/s/AKfycby_EKo1_HFOI_i7Z5spLmN1xuJslzBXwgeIFO1-qb9_UWDFLF1o5iklA8CXr3UqiYMx/exec";
 
 export const TELEGRAM = { handle: "@anestezia7", url: "https://t.me/anestezia7" };
 
