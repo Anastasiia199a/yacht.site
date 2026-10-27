@@ -1,14 +1,18 @@
-import { ArrowDown, ArrowRight, ArrowUpRight, ChevronDown, Phone } from "lucide-react";
-import { useEffect, useRef, useState, type CSSProperties, type FormEvent, type ReactNode } from "react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Phone } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 import ilyaPhoto from "@/assets/ilya.webp";
 import yachtLong from "@/assets/yacht-long.jpg";
 import yachtMotor from "@/assets/yacht-motor.jpg";
 import yachtSail from "@/assets/yacht-sail.jpg";
+import { AssistantChat } from "@/components/site/assistant-chat";
 import { DepthGauge, type DepthGaugeHandle } from "@/components/site/depth-gauge";
 import { HullDrawing } from "@/components/site/hull-drawing";
+import { InstagramIcon, TelegramIcon } from "@/components/site/icons";
+import { LeadForm } from "@/components/site/lead-form";
 import { OceanSurface, type OceanFrame } from "@/components/ui/fft-ocean-surface";
 import { underwaterAt } from "@/components/ui/fft-ocean-surface-utils/renderer";
+import { TELEGRAM } from "@/lib/backend";
 import { sampleScript, WAVE_MAX, WAVE_MIN } from "@/lib/ocean-script";
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
@@ -25,10 +29,10 @@ const isLowPower = () =>
 /** Stagger index for an entrance; see `[data-reveal]` in index.css. */
 const rise = (i: number) => ({ "data-reveal": "", style: { "--i": i } as CSSProperties });
 
-// Fill in the real handles and number before launch.
+// Fill in the real Instagram handle and phone number before launch.
 const CONTACTS = {
   instagram: { handle: "@your_handle", href: "https://instagram.com/" },
-  telegram: { handle: "@your_handle", href: "https://t.me/" },
+  telegram: { handle: TELEGRAM.handle, href: TELEGRAM.url },
   phone: { display: "+000 00 000 0000", href: "tel:+000000000000" },
 };
 
@@ -84,6 +88,12 @@ const PLANS = [
     photo: yachtLong,
     alt: "Long yacht hull seen from above",
   },
+];
+
+// Options for the request forms; the label is what lands in the sheet and the emails.
+const PLAN_OPTIONS = [
+  ...PLANS.map((p) => ({ id: p.id, label: `${p.name} · ${p.price}` })),
+  { id: "unsure", label: "Not sure yet" },
 ];
 
 const FACTS = [
@@ -300,6 +310,8 @@ export default function App() {
 
         <RequestSection plan={plan} onPlanChange={setPlan} />
       </main>
+
+      <AssistantChat plans={PLAN_OPTIONS} />
     </>
   );
 }
@@ -446,13 +458,6 @@ function RequestSection({
   plan: string;
   onPlanChange: (id: string) => void;
 }) {
-  const [sent, setSent] = useState(false);
-  const submit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSent(true);
-  };
-  const selected = PLANS.find((p) => p.id === plan) ?? PLANS[0];
-
   return (
     <section
       id="apply"
@@ -470,51 +475,10 @@ function RequestSection({
 
         <div className="mt-14 grid gap-14 md:grid-cols-[1.1fr_1fr] md:gap-16">
           <div {...rise(2)} className="relative z-20">
-            <p className="mb-5 text-ink/90">Leave your contact and I'll message you personally to answer your questions.</p>
-            {sent ? (
-              <p className="bg-field/80 px-5 py-6 text-lg" role="status">
-                Got it: “{selected.name}”, {selected.price}. I'll be in touch soon.
-              </p>
-            ) : (
-              <form onSubmit={submit} className="grid gap-3 text-left">
-                <label className="sr-only" htmlFor="f-name">Name</label>
-                <input id="f-name" name="name" required autoComplete="name" placeholder="Name" className="field" />
-                <label className="sr-only" htmlFor="f-contact">Phone or Telegram</label>
-                <input
-                  id="f-contact"
-                  name="contact"
-                  required
-                  autoComplete="tel"
-                  placeholder="Phone or Telegram"
-                  className="field"
-                />
-                <label className="sr-only" htmlFor="f-plan">Format</label>
-                <div className="relative">
-                  <select
-                    id="f-plan"
-                    name="plan"
-                    value={plan}
-                    onChange={(e) => onPlanChange(e.target.value)}
-                    className="field appearance-none pr-12"
-                  >
-                    {PLANS.map((p) => (
-                      <option key={p.id} value={p.id} className="bg-deep">
-                        {p.name} · {p.price}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown
-                    aria-hidden
-                    strokeWidth={1.5}
-                    className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-gauge"
-                  />
-                </div>
-                <button type="submit" className="btn-gold mt-3 w-full">
-                  Get me on board
-                  <ArrowRight className="nudge-right size-4" strokeWidth={1.75} />
-                </button>
-              </form>
-            )}
+            <p className="mb-5 text-ink/90">
+              Leave your details and I'll message you personally. You'll get a copy of your request by email.
+            </p>
+            <LeadForm plans={PLAN_OPTIONS} plan={plan} onPlanChange={onPlanChange} source="form" />
           </div>
 
           <div {...rise(3)} id="contact" className="relative z-20">
@@ -532,9 +496,14 @@ function RequestSection({
           </div>
         </div>
 
-        <p className="relative z-20 mt-16 text-center text-sm text-gauge">
-          Ilya Belov, yacht crew. Seychelles and Maldives.
-        </p>
+        <footer className="relative z-20 mt-20 flex flex-col items-center gap-5 text-center">
+          <a href={TELEGRAM.url} target="_blank" rel="noreferrer" className="btn-gold">
+            <TelegramIcon />
+            Message Ilya on Telegram
+            <span className="text-gauge">{TELEGRAM.handle}</span>
+          </a>
+          <p className="text-sm text-gauge">Ilya Belov, yacht crew. Seychelles and Maldives.</p>
+        </footer>
       </div>
     </section>
   );
@@ -568,24 +537,5 @@ function ContactRow({
         <ArrowUpRight aria-hidden className="arrow size-5 text-gauge group-hover:text-ink" strokeWidth={1.5} />
       </a>
     </li>
-  );
-}
-
-function InstagramIcon() {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth={1.5}>
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4.2" />
-      <circle cx="17.4" cy="6.6" r="0.9" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function TelegramIcon() {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinejoin="round">
-      <path d="M21.5 3.5 2.8 10.7c-.9.3-.9 1.6 0 1.9l4.6 1.5 1.8 5.6c.2.7 1.1.9 1.6.4l2.6-2.5 4.8 3.5c.6.4 1.4.1 1.6-.6l3-15.5c.2-.9-.6-1.6-1.3-1.5Z" />
-      <path d="m7.4 14.1 10.4-7.4-8.1 9" />
-    </svg>
   );
 }

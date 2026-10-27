@@ -88,6 +88,21 @@ body {
 .btn-gold:active {
   transform: scale(0.98);
 }
+/* After a successful registration the button turns green and stays green. */
+.btn-gold.is-sent,
+.btn-gold.is-sent:hover,
+.btn-gold.is-sent:focus-visible {
+  --btn-bg: #1f8f4e;
+  background: #1f8f4e;
+  border-color: #1f8f4e;
+  color: #fff;
+  box-shadow: none;
+  cursor: default;
+}
+.btn-gold:disabled:not(.is-sent) {
+  opacity: 0.7;
+  cursor: progress;
+}
 .btn-gold:hover svg.nudge-down {
   transform: translateY(3px);
 }
