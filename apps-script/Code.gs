@@ -9,7 +9,7 @@
  */
 
 // Change the model here if Google renames or retires it (see SETUP.md).
-const GEMINI_MODEL = 'gemini-2.5-flash';
+const GEMINI_MODEL = 'gemini-3.8-flash';
 const NOTIFY_EMAIL = '';              // where new requests go; empty = the Google account that owns the script
 const SENDER_NAME = 'Ilya Belov';     // name shown on emails to visitors
 const TELEGRAM_URL = 'https://t.me/anestezia7';
@@ -462,8 +462,9 @@ function askGemini_(history, message) {
     .map(function (h) { return { role: h.role === 'model' ? 'model' : 'user', parts: [{ text: String(h.text).slice(0, 1000) }] }; });
   contents.push({ role: 'user', parts: [{ text: message }] });
 
-  const config = { temperature: 0.3, maxOutputTokens: 500 };
-  // 2.5 Flash "thinks" before answering; for short FAQ replies thinking only costs tokens
+  // Flash models "think" before answering and the thinking counts toward maxOutputTokens,
+  // so the cap leaves room for it; the replies themselves stay short via the prompt.
+  const config = { temperature: 0.3, maxOutputTokens: 2048 };
   if (GEMINI_MODEL.indexOf('2.5-flash') !== -1) config.thinkingConfig = { thinkingBudget: 0 };
 
   const res = UrlFetchApp.fetch(
