@@ -10,6 +10,7 @@
 
 // Change the model here if Google renames or retires it (see SETUP.md).
 const GEMINI_MODEL = 'gemini-3.8-flash';
+const FALLBACK_MODEL = 'gemini-3.6-flash'; // used when the main model is busy or unavailable
 const NOTIFY_EMAIL = '';              // where new requests go; empty = the Google account that owns the script
 const SENDER_NAME = 'Ilya Belov';     // name shown on emails to visitors
 const TELEGRAM_URL = 'https://t.me/anestezia7';
@@ -462,13 +463,35 @@ function askGemini_(history, message) {
     .map(function (h) { return { role: h.role === 'model' ? 'model' : 'user', parts: [{ text: String(h.text).slice(0, 1000) }] }; });
   contents.push({ role: 'user', parts: [{ text: message }] });
 
+  // A busy model (503), a rate limit (429) or a server hiccup (500) is usually gone within
+  // seconds: retry once, then try the fallback model before giving up.
+  const models = [GEMINI_MODEL, FALLBACK_MODEL].filter(function (m, i, all) { return m && all.indexOf(m) === i; });
+  for (let i = 0; i < models.length; i++) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const res = callGemini_(models[i], key, contents);
+      const code = res.getResponseCode();
+      if (code === 200) {
+        const data = JSON.parse(res.getContentText());
+        const parts = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts;
+        const text = parts ? parts.map(function (x) { return x.thought ? '' : x.text || ''; }).join('').trim() : '';
+        return text || null;
+      }
+      console.error('Gemini ' + models[i] + ' ' + code + ': ' + res.getContentText().slice(0, 500));
+      if (code !== 429 && code !== 500 && code !== 503) break;
+      Utilities.sleep(1200);
+    }
+  }
+  return null;
+}
+
+function callGemini_(model, key, contents) {
   // Flash models "think" before answering and the thinking counts toward maxOutputTokens,
   // so the cap leaves room for it; the replies themselves stay short via the prompt.
   const config = { temperature: 0.3, maxOutputTokens: 2048 };
-  if (GEMINI_MODEL.indexOf('2.5-flash') !== -1) config.thinkingConfig = { thinkingBudget: 0 };
+  if (model.indexOf('2.5-flash') !== -1) config.thinkingConfig = { thinkingBudget: 0 };
 
-  const res = UrlFetchApp.fetch(
-    'https://generativelanguage.googleapis.com/v1beta/models/' + GEMINI_MODEL + ':generateContent',
+  return UrlFetchApp.fetch(
+    'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent',
     {
       method: 'post',
       contentType: 'application/json',
@@ -481,14 +504,6 @@ function askGemini_(history, message) {
       muteHttpExceptions: true,
     }
   );
-  if (res.getResponseCode() !== 200) {
-    console.error('Gemini ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 500));
-    return null;
-  }
-  const data = JSON.parse(res.getContentText());
-  const parts = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts;
-  const text = parts ? parts.map(function (x) { return x.text || ''; }).join('').trim() : '';
-  return text || null;
 }
 
 function withinLimits_(session) {
