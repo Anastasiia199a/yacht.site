@@ -217,7 +217,7 @@ body {
   transform: none;
 }
 
-/* Hero headline on hover: grows by about 3px, then everything but "лето" dissolves;
+/* Hero headline on hover: grows by about 3px, then everything but "summer" dissolves;
    returns when the pointer leaves. */
 .hero-title {
   pointer-events: auto;

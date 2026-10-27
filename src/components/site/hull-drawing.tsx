@@ -18,11 +18,11 @@ const FORE = [
   { b: 40, keel: 196, deck: 54 },
 ];
 const WATERLINES = [
-  { y: 228, label: "ВЛ 1" },
-  { y: 198, label: "ВЛ 2" },
-  { y: DWL, label: "КВЛ" },
-  { y: 138, label: "ВЛ 4" },
-  { y: 108, label: "ВЛ 5" },
+  { y: 228, label: "WL 1" },
+  { y: 198, label: "WL 2" },
+  { y: DWL, label: "DWL" },
+  { y: 138, label: "WL 4" },
+  { y: 108, label: "WL 5" },
 ];
 
 function section(side: -1 | 1, { b, keel, deck }: { b: number; keel: number; deck: number }) {
@@ -60,7 +60,7 @@ export function HullDrawing() {
       ref={ref}
       viewBox="0 0 440 320"
       role="img"
-      aria-label="Теоретический чертёж корпуса: шпангоуты, ватерлинии, диаметральная плоскость"
+      aria-label="Lines plan of the hull: stations, waterlines and centre plane"
       className={`w-full text-gauge ${drawn ? "drawn" : ""}`}
       fill="none"
       stroke="currentColor"
@@ -113,10 +113,10 @@ export function HullDrawing() {
             {w.label}
           </text>
         ))}
-        <text x={CX + 5} y={26}>ДП</text>
-        <text x={30} y={AFT[0].keel + 12}>ОЛ</text>
-        <text x={CX - 110} y={22}>корма · шп. 0–4</text>
-        <text x={CX + 52} y={22}>нос · шп. 5–9</text>
+        <text x={CX + 5} y={26}>CL</text>
+        <text x={30} y={AFT[0].keel + 12}>BL</text>
+        <text x={CX - 110} y={22}>aft · stations 0–4</text>
+        <text x={CX + 52} y={22}>bow · stations 5–9</text>
       </g>
     </svg>
   );

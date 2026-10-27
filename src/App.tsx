@@ -27,71 +27,70 @@ const rise = (i: number) => ({ "data-reveal": "", style: { "--i": i } as CSSProp
 
 // Fill in the real handles and number before launch.
 const CONTACTS = {
-  instagram: { handle: "@ваш_ник", href: "https://instagram.com/" },
-  telegram: { handle: "@ваш_ник", href: "https://t.me/" },
-  phone: { display: "+7 000 000-00-00", href: "tel:+70000000000" },
+  instagram: { handle: "@your_handle", href: "https://instagram.com/" },
+  telegram: { handle: "@your_handle", href: "https://t.me/" },
+  phone: { display: "+000 00 000 0000", href: "tel:+000000000000" },
 };
 
 const PLANS = [
   {
     id: "start",
-    name: "Старт",
-    title: "Твой первый шаг к карьере в море",
+    name: "Start",
+    title: "Your first step toward a career at sea",
     price: "$500",
-    audience: "Для тех, кто хочет попасть в яхтенную индустрию, но не понимает, с чего начать.",
+    audience: "For those who want to get into the yachting industry but don't know where to start.",
     points: [
-      "Какие документы и квалификации нужны.",
-      "Как устроен найм и где искать вакансии.",
-      "Как подготовиться к первым откликам.",
-      "Персональная консультация со мной.",
+      "Which documents and qualifications you need.",
+      "How hiring works and where to find jobs.",
+      "How to prepare your first applications.",
+      "A one-on-one consultation with me.",
     ],
-    result: "Понятный план действий вместо хаотичного поиска информации.",
+    result: "A clear action plan instead of a chaotic search for information.",
     photo: yachtSail,
-    alt: "Парусная яхта сверху на тёмной воде",
+    alt: "Sailing yacht seen from above on dark water",
   },
   {
     id: "mentor",
-    name: "С сопровождением",
-    title: "Из новичка — к первому выходу в море",
-    price: "$1 200",
+    name: "Mentoring",
+    title: "From beginner to your first time at sea",
+    price: "$1,200",
     audience:
-      "Для тех, кому нужен не очередной гайд из интернета, а человек, который проведёт по пути лично.",
+      "For those who need a person to walk the path with them, not another guide from the internet.",
     points: [
-      "Индивидуальный план подготовки.",
-      "Помощь с документами и поиском возможностей.",
-      "Разбор следующих шагов и типичных ошибок.",
-      "Сопровождение вплоть до совместной поездки из России на Сейшелы — если позволяют документы и обстоятельства.",
+      "A personal preparation plan.",
+      "Help with documents and finding opportunities.",
+      "A breakdown of next steps and common mistakes.",
+      "Support all the way to a joint trip to the Seychelles, if documents and circumstances allow.",
     ],
-    result: "Поддержка и ориентир на каждом согласованном этапе.",
+    result: "Support and direction at every agreed stage.",
     photo: yachtMotor,
-    alt: "Моторная яхта сверху на якорной стоянке",
+    alt: "Motor yacht seen from above at anchor",
   },
   {
     id: "full",
-    name: "Полная программа",
-    title: "Твой маршрут в профессию",
-    price: "$2 500",
+    name: "Full program",
+    title: "Your route into the profession",
+    price: "$2,500",
     audience:
-      "Для тех, кто готов серьёзно вложиться в новую профессию и хочет структурированную подготовку.",
+      "For those ready to invest seriously in a new profession who want structured training.",
     points: [
-      "Обучение в течение 3 месяцев.",
-      "План получения морских документов, включая паспорт моряка.",
-      "Подготовка к выходу на рынок яхтенных вакансий.",
-      "Наставничество и разбор твоих личных вопросов.",
-      "Сопровождение по согласованной программе до следующих этапов трудоустройства.",
+      "Three months of training.",
+      "A plan for getting your maritime documents, including a seaman's book.",
+      "Preparation for entering the yacht job market.",
+      "Mentoring and answers to your personal questions.",
+      "Support through an agreed program up to the next stages of employment.",
     ],
-    result: "Системная подготовка к старту в яхтенной индустрии.",
+    result: "Systematic preparation for starting out in the yachting industry.",
     photo: yachtLong,
-    alt: "Длинный корпус яхты сверху",
+    alt: "Long yacht hull seen from above",
   },
 ];
 
 const FACTS = [
-  ["Возраст", "26 лет"],
-  ["На борту", "2 года, моряк на яхте"],
-  ["Воды", "Сейшелы, Мальдивы"],
-  ["Откуда", "Россия — начинал с нуля, как и ты"],
-  ["Формат", "Онлайн и лично"],
+  ["Age", "26"],
+  ["On board", "2 years as yacht crew"],
+  ["Waters", "Seychelles, Maldives"],
+  ["Format", "Online and in person"],
 ];
 
 // Shared frame: one pair of margins, text on a common left edge right of the depth gauge.
@@ -212,41 +211,41 @@ export default function App() {
       </div>
 
       <main className="relative">
-        <section ref={heroRef} aria-label="Переключи зиму на лето" className="h-[148vh] md:h-[170vh]" />
+        <section ref={heroRef} aria-label="Switch winter to summer" className="h-[148vh] md:h-[170vh]" />
 
-        <section id="put" className={`min-h-[92vh] pt-[4vh] pb-16 ${FRAME}`}>
-          <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
+        <section id="path" className={`min-h-[92vh] pt-[4vh] pb-16 ${FRAME}`}>
+          <h2 {...rise(0)} className={`${H2} max-sm:text-[9.4vw]`}>
+            Seychelles —
+            <br />
+            not for everyone?
+          </h2>
+          <div className="mt-8 grid items-start gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
             <div>
-              <h2 {...rise(0)} className={H2}>
-                Сейшелы —
-                <br />
-                не для всех?
-              </h2>
-              <p {...rise(1)} className="relative z-20 mt-8 max-w-[30ch] text-xl leading-snug md:text-2xl">
-                Я тоже так думал. Пока не понял: на остров можно попасть не туристом, а членом
-                экипажа.
+              <p {...rise(1)} className="relative z-20 max-w-[30ch] text-xl leading-snug md:text-2xl">
+                I used to think so too. Until I realised you can get to the islands as crew, not
+                as a tourist.
               </p>
               <p {...rise(2)} className="relative z-20 mt-6 max-w-[44ch] md:text-[17px]">
-                Расскажу, как попасть в яхтенную индустрию, какие документы оформить и с чего
-                начать путь моряка. Помогу пройти его от первого шага до выхода в море — на основе
-                моего личного опыта работы на яхте.
+                I'll show you how to get into the yachting industry, which documents to sort out
+                and where to start as a sailor. I'll help you go from the first step to your first
+                time at sea, based on my own experience working on a yacht.
               </p>
             </div>
-            <figure {...rise(3)} className="relative z-20 max-w-xl lg:max-w-none lg:pt-28">
+            <figure {...rise(3)} className="relative z-20 max-w-xl lg:-mt-6 lg:max-w-none">
               <HullDrawing />
               <figcaption className="mt-4 text-sm text-gauge">
-                Яхта изнутри: то, что не видно с пляжа
+                A yacht from the inside: what you can't see from the beach
               </figcaption>
             </figure>
           </div>
         </section>
 
-        <section id="formaty" className={`min-h-[200vh] pt-[10vh] pb-[20vh] ${FRAME}`}>
+        <section id="plans" className={`min-h-[200vh] pt-[10vh] pb-[20vh] ${FRAME}`}>
           <h2 {...rise(0)} className={H2}>
-            Выбери свой старт
+            Choose your start
           </h2>
           <p {...rise(1)} className="relative z-20 mt-6 max-w-[40ch] text-xl text-ink/90 md:text-2xl">
-            Три формата — от разговора до трёх месяцев обучения.
+            Three formats, from a single conversation to three months of training.
           </p>
           <div className="mt-[14vh] space-y-[18vh] md:space-y-[16vh]">
             {PLANS.map((p, i) => (
@@ -255,25 +254,25 @@ export default function App() {
           </div>
         </section>
 
-        <section id="obo-mne" className={`min-h-[110vh] pt-[10vh] ${FRAME}`}>
+        <section id="about" className={`min-h-[110vh] pt-[10vh] ${FRAME}`}>
           <div className="grid items-start gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
             <div>
               <h2 {...rise(0)} className={H2}>
-                Я Илья Белов
+                I'm Ilya Belov
               </h2>
               <p {...rise(1)} className="relative z-20 mt-8 max-w-[30ch] text-xl leading-snug md:text-2xl">
-                Не продаю сказку о лёгких деньгах под пальмами.
+                I don't sell fairy tales about easy money under the palms.
               </p>
               <div {...rise(2)} className="relative z-20 mt-6 max-w-[46ch] space-y-4 md:text-[17px]">
                 <p>
-                  Мне 26 лет, и последние два года я работаю моряком на яхте. Делюсь тем, что узнал
-                  на практике, чтобы ты разобрался в профессии, не наделал лишних ошибок и понял, как
-                  сделать первый шаг к работе за границей.
+                  I'm 26, and for the last two years I've worked as crew on a yacht. I share what
+                  I've learned in practice so you understand the profession, avoid unnecessary
+                  mistakes and know how to take your first step toward working abroad.
                 </p>
-                <p>Показываю, как этот путь устроен в реальности, — и помогаю пройти его осознанно.</p>
+                <p>I show you how this path really works, and help you walk it with your eyes open.</p>
               </div>
               <table {...rise(3)} className="relative z-20 mt-12 w-full max-w-xl text-left">
-                <caption className="sr-only">Коротко обо мне</caption>
+                <caption className="sr-only">About me in brief</caption>
                 <tbody>
                   {FACTS.map(([k, v]) => (
                     <tr key={k} className="flex items-baseline gap-6 border-t border-gauge/20 py-3.5">
@@ -290,7 +289,7 @@ export default function App() {
               <div className="overflow-hidden">
                 <img
                   src={ilyaPhoto}
-                  alt="Илья Белов на палубе яхты смотрит на закат над морем"
+                  alt="Ilya Belov on a yacht deck watching the sunset over the sea"
                   loading="lazy"
                   className="deck-photo aspect-[3/4] w-full object-cover object-[50%_35%]"
                 />
@@ -314,24 +313,24 @@ function Header() {
         style={{ background: "linear-gradient(rgb(4 18 31 / 0.92), rgb(4 18 31 / 0.6) 55%, transparent)" }}
       />
       <div className="flex items-center justify-between gap-4 px-5 pt-4 pb-3 sm:px-8 md:px-10 md:pt-5">
-        <a href="#" className="group flex items-baseline gap-4 py-2" aria-label="Илья Белов — наверх">
+        <a href="#" className="group flex items-baseline gap-4 py-2" aria-label="Ilya Belov, back to top">
           <span className="display text-[17px] tracking-[0.32em] transition-colors group-hover:text-ink md:text-xl">
-            ИЛЬЯ БЕЛОВ
+            ILYA BELOV
           </span>
-          <span className="hidden text-sm text-gauge lg:inline">моряк, Сейшелы и Мальдивы</span>
+          <span className="hidden text-sm text-gauge lg:inline">yacht crew, Seychelles and Maldives</span>
         </a>
         <nav className="flex items-center gap-7 text-[14px]">
-          <a href="#formaty" className="link hidden md:inline">
-            Форматы
+          <a href="#plans" className="link hidden md:inline">
+            Plans
           </a>
-          <a href="#obo-mne" className="link hidden md:inline">
-            Обо мне
+          <a href="#about" className="link hidden md:inline">
+            About
           </a>
-          <a href="#kontakty" className="link hidden md:inline">
-            Контакты
+          <a href="#contact" className="link hidden md:inline">
+            Contact
           </a>
-          <a href="#zayavka" className="btn-gold !min-h-10 !px-5 !text-[14px]">
-            Заявка
+          <a href="#apply" className="btn-gold !min-h-10 !px-5 !text-[14px]">
+            Apply
           </a>
         </nav>
       </div>
@@ -352,9 +351,9 @@ function HeroLayout({ part }: { part: "title" | "caption" }) {
         className={`display text-[10.8vw] leading-[0.95] whitespace-nowrap md:text-[8.8vw] lg:text-[8vw] ${title ? "hero-title" : "invisible"}`}
       >
         <span className="hero-rise block">
-          <span className="winter">Переключи зиму</span>
+          <span className="winter">Switch winter</span>
           <br />
-          <span className="winter">на </span>лето
+          <span className="winter">to </span>summer
         </span>
       </Tag>
       <div aria-hidden={title} className={`flex flex-col items-center ${title ? "invisible" : ""}`}>
@@ -362,20 +361,20 @@ function HeroLayout({ part }: { part: "title" | "caption" }) {
           className="hero-rise mt-8 max-w-[36ch] text-xl leading-snug md:mt-10 md:text-2xl"
           style={{ "--delay": "180ms" } as CSSProperties}
         >
-          Твоя жизнь под пальмами ближе, чем кажется.
+          Your life under the palms is closer than you think.
         </p>
         <p
           className="hero-rise mt-3 text-sm text-gauge md:text-base"
           style={{ "--delay": "260ms" } as CSSProperties}
         >
-          Илья Белов, моряк на яхте. Консультации и наставничество — от $500.
+          Ilya Belov, yacht crew. Consultations and mentoring from $500.
         </p>
         <Cta
-          href={title ? undefined : "#formaty"}
+          href={title ? undefined : "#plans"}
           className="btn-gold hero-rise pointer-events-auto mt-9 w-full max-w-xs sm:w-auto"
           style={{ "--delay": "360ms" } as CSSProperties}
         >
-          Выбрать формат
+          Choose a format
           <ArrowDown className="nudge-down size-4" strokeWidth={1.75} />
         </Cta>
       </div>
@@ -428,11 +427,11 @@ function PlanCard({
           ))}
         </ul>
         <p {...rise(5)} className="mt-8 max-w-[46ch] bg-field/80 px-5 py-4 leading-snug md:text-[17px]">
-          <span className="text-ink">Результат: </span>
+          <span className="text-ink">Result: </span>
           {p.result}
         </p>
-        <a {...rise(6)} href="#zayavka" onClick={onChoose} className="btn-gold mt-8 w-full sm:w-auto">
-          Выбрать «{p.name}»
+        <a {...rise(6)} href="#apply" onClick={onChoose} className="btn-gold mt-8 w-full sm:w-auto">
+          Choose “{p.name}”
           <ArrowRight className="nudge-right size-4" strokeWidth={1.75} />
         </a>
       </div>
@@ -456,40 +455,40 @@ function RequestSection({
 
   return (
     <section
-      id="zayavka"
+      id="apply"
       className="flex min-h-screen flex-col justify-center px-5 pt-28 pb-14 sm:px-8 md:px-10"
     >
       <div className="mx-auto w-full max-w-5xl">
         <div className="text-center">
           <h2 {...rise(0)} className={H2}>
-            Твой старт
+            Your start
           </h2>
           <p {...rise(1)} className="relative z-20 mx-auto mt-6 max-w-[34ch] text-xl leading-snug md:text-2xl">
-            Он начинается не с яхты. Он начинается с решения.
+            It doesn't begin with a yacht. It begins with a decision.
           </p>
         </div>
 
         <div className="mt-14 grid gap-14 md:grid-cols-[1.1fr_1fr] md:gap-16">
           <div {...rise(2)} className="relative z-20">
-            <p className="mb-5 text-ink/90">Оставь контакт — я напишу лично и отвечу на вопросы.</p>
+            <p className="mb-5 text-ink/90">Leave your contact and I'll message you personally to answer your questions.</p>
             {sent ? (
               <p className="bg-field/80 px-5 py-6 text-lg" role="status">
-                Заявка у меня: «{selected.name}», {selected.price}. Скоро напишу.
+                Got it: “{selected.name}”, {selected.price}. I'll be in touch soon.
               </p>
             ) : (
               <form onSubmit={submit} className="grid gap-3 text-left">
-                <label className="sr-only" htmlFor="f-name">Имя</label>
-                <input id="f-name" name="name" required autoComplete="name" placeholder="Имя" className="field" />
-                <label className="sr-only" htmlFor="f-contact">Телефон или Telegram</label>
+                <label className="sr-only" htmlFor="f-name">Name</label>
+                <input id="f-name" name="name" required autoComplete="name" placeholder="Name" className="field" />
+                <label className="sr-only" htmlFor="f-contact">Phone or Telegram</label>
                 <input
                   id="f-contact"
                   name="contact"
                   required
                   autoComplete="tel"
-                  placeholder="Телефон или Telegram"
+                  placeholder="Phone or Telegram"
                   className="field"
                 />
-                <label className="sr-only" htmlFor="f-plan">Формат</label>
+                <label className="sr-only" htmlFor="f-plan">Format</label>
                 <div className="relative">
                   <select
                     id="f-plan"
@@ -511,21 +510,21 @@ function RequestSection({
                   />
                 </div>
                 <button type="submit" className="btn-gold mt-3 w-full">
-                  Хочу на борт
+                  Get me on board
                   <ArrowRight className="nudge-right size-4" strokeWidth={1.75} />
                 </button>
               </form>
             )}
           </div>
 
-          <div {...rise(3)} id="kontakty" className="relative z-20">
-            <h3 className="display text-3xl leading-tight md:text-4xl">Или напиши напрямую</h3>
+          <div {...rise(3)} id="contact" className="relative z-20">
+            <h3 className="display text-3xl leading-tight md:text-4xl">Or message me directly</h3>
             <ul className="mt-6 grid gap-2">
               <ContactRow href={CONTACTS.telegram.href} label="Telegram" value={CONTACTS.telegram.handle} icon={<TelegramIcon />} external />
               <ContactRow href={CONTACTS.instagram.href} label="Instagram" value={CONTACTS.instagram.handle} icon={<InstagramIcon />} external />
               <ContactRow
                 href={CONTACTS.phone.href}
-                label="Телефон"
+                label="Phone"
                 value={CONTACTS.phone.display}
                 icon={<Phone className="size-5" strokeWidth={1.5} />}
               />
@@ -534,7 +533,7 @@ function RequestSection({
         </div>
 
         <p className="relative z-20 mt-16 text-center text-sm text-gauge">
-          Илья Белов, моряк на яхте. Сейшелы и Мальдивы.
+          Ilya Belov, yacht crew. Seychelles and Maldives.
         </p>
       </div>
     </section>

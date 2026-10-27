@@ -1,26 +1,26 @@
-# Илья Белов — переключи зиму на лето
+# Ilya Belov — Switch winter to summer
 
-Одностраничный сайт моряка-наставника: консультации, сопровождение и 3-месячная
-программа для тех, кто хочет работать на яхтах.
+A one-page site for a yacht crew mentor: consultations, mentoring and a 3-month
+program for anyone who wants to work on yachts.
 
-Фон — живой океан на WebGPU (компонент FFT Ocean Surface с 21st.dev): камера
-ведётся прокруткой, ныряет под воду и всплывает к штилю. Без WebGPU вместо
-сцены сплошной фон.
+The backdrop is a live WebGPU ocean (the FFT Ocean Surface component from
+21st.dev): the camera follows the scroll, dives under water and surfaces into a
+calm. Without WebGPU the scene falls back to a flat background.
 
-## Запуск
+## Run
 
 ```bash
 bun install
 bun run dev
 ```
 
-Сборка: `bun run build`, результат в `dist/`.
+Build: `bun run build`, output in `dist/`.
 
-## Стек
+## Stack
 
 React, TypeScript, Vite, Tailwind CSS 4, vgpu (WebGPU), bun.
 
-## Перед запуском в продакшен
+## Before going live
 
-- Контакты Ильи — заглушки в константе `CONTACTS` в `src/App.tsx`.
-- Форма заявки пока никуда не отправляет данные.
+- Ilya's contacts are placeholders in the `CONTACTS` constant in `src/App.tsx`.
+- The request form doesn't send data anywhere yet.

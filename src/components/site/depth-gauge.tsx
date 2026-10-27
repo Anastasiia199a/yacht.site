@@ -36,10 +36,10 @@ export function DepthGauge({ ref }: { ref: Ref<DepthGaugeHandle> }) {
         );
         const prev = last.current;
         if (metres !== prev.metres && valueRef.current) {
-          valueRef.current.textContent = `${metres > 0 ? "+" : metres < 0 ? "−" : ""}${Math.abs(metres)} м`;
+          valueRef.current.textContent = `${metres > 0 ? "+" : metres < 0 ? "−" : ""}${Math.abs(metres)} m`;
         }
         if (under !== prev.under || Number.isNaN(prev.metres)) {
-          if (sideRef.current) sideRef.current.textContent = under ? "под водой" : "над водой";
+          if (sideRef.current) sideRef.current.textContent = under ? "below water" : "above water";
         }
         if (score !== prev.score) {
           if (scoreRef.current) scoreRef.current.textContent = String(score);
@@ -58,7 +58,7 @@ export function DepthGauge({ ref }: { ref: Ref<DepthGaugeHandle> }) {
       aria-hidden
       className="pointer-events-none fixed top-1/2 left-10 z-20 hidden -translate-y-1/2 select-none lg:block"
     >
-      <p className="mb-4 text-[13px] text-gauge">Глубина</p>
+      <p className="mb-4 text-[13px] text-gauge">Depth</p>
       <div className="relative" style={{ height: SCALE_PX }}>
         <div className="absolute top-0 left-0 h-full w-px bg-gauge/50" />
         {Array.from({ length: STEPS + 1 }, (_, i) => {
@@ -75,7 +75,7 @@ export function DepthGauge({ ref }: { ref: Ref<DepthGaugeHandle> }) {
               />
               {(waterline || h % 50 === 0) && (
                 <span className={`ml-2 text-[13px] whitespace-nowrap ${waterline ? "text-ink" : "text-gauge"}`}>
-                  {waterline ? "0 ватерлиния" : h > 0 ? `+${h}` : `−${-h}`}
+                  {waterline ? "0 waterline" : h > 0 ? `+${h}` : `−${-h}`}
                 </span>
               )}
             </div>
@@ -86,9 +86,9 @@ export function DepthGauge({ ref }: { ref: Ref<DepthGaugeHandle> }) {
             <span className="h-[3px] w-[3px] rounded-full bg-ink" />
             <span className="h-px w-8 bg-ink" />
             <span className="text-[13px] whitespace-nowrap text-ink">
-              <span ref={valueRef}>+118 м</span>
+              <span ref={valueRef}>+118 m</span>
               <span ref={sideRef} className="ml-2 text-gauge">
-                над водой
+                above water
               </span>
             </span>
           </div>
@@ -96,7 +96,7 @@ export function DepthGauge({ ref }: { ref: Ref<DepthGaugeHandle> }) {
       </div>
 
       <p className="mt-10 mb-3 text-[13px] text-gauge">
-        Волнение: <span ref={scoreRef} className="text-ink">5</span> из 9
+        Sea state: <span ref={scoreRef} className="text-ink">5</span> of 9
       </p>
       <div ref={ticksRef} className="flex items-end gap-[5px]">
         {Array.from({ length: 9 }, (_, i) => (
